@@ -27,8 +27,12 @@ class Storage {
 
   static addToArray(amount, description, category) {
     let entries = Storage.getData();
+
     entries.push(new Entry(amount, description, category));
+
     Storage.setData(entries);
+    UI.populateOnLoad(entries);
+
     console.log(entries);
   }
 
@@ -36,6 +40,7 @@ class Storage {
     let entries = Storage.getData();
 
     entries.splice(index - 1, 1);
+    
     Storage.setData(entries);
     UI.populateOnLoad(entries);
   }
@@ -43,8 +48,18 @@ class Storage {
   static editFromArray(amountInput, descriptionInput, index) {
     let entries = Storage.getData();
 
+    // Assigning updated values
     entries[index - 1].amount = amountInput;
     entries[index - 1].description = descriptionInput;
+
+    // Deciding category
+    entries.forEach((entry) => {
+      if (entry.amount < 0) {
+        entry.category = "expense";
+      } else {
+        entry.category = "income";
+      }
+    });
 
     Storage.setData(entries);
     UI.populateOnLoad(entries);
@@ -124,8 +139,7 @@ class UI {
       let tr = document.createElement("tr");
 
       tr.innerHTML = `
-            <td class=text-${
-              entry.category === "income" ? "success" : "danger"}
+            <td class=text-${entry.category === "income" ? "success" : "danger"}
             >
             
             ${entry.category}
@@ -208,26 +222,31 @@ function addEntry() {
     document.querySelector("#description").value = "";
     document.querySelector("#expense").checked = true;
 
-    setInterval(location.reload());
   }
 }
 
+// Edit Entry on click and save on blur
 function editEntry(e) {
   let index = e.parentElement.parentElement.rowIndex;
-  let descriptionInput = e.parentElement.previousElementSibling.children[0];
+  let categoryInput =
+    e.parentElement.previousElementSibling.previousElementSibling
+      .previousElementSibling;
   let amountInput =
     e.parentElement.previousElementSibling.previousElementSibling.children[0];
+  let descriptionInput = e.parentElement.previousElementSibling.children[0];
 
   // Allowing user to add data
   amountInput.removeAttribute("readonly");
   descriptionInput.removeAttribute("readonly");
 
   // Allowing numbers as input only
-  amountInput.onkeypress = (evt) => {
-    var charCode = evt.which ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
-    return true;
-  };
+  amountInput.addEventListener("keypress", function (e) {
+    var keycode = e.keyCode ? e.keyCode : e.which;
+    if (/[^0-9\-]/.test(String.fromCharCode(keycode))) {
+      // a non–digit was entered
+      e.preventDefault();
+    }
+  });
 
   // Saving data to array on blur
   descriptionInput.onblur = () => {
