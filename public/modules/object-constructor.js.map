@@ -1,0 +1,1 @@
+{"version":3,"file":"object-constructor.js","sourceRoot":"","sources":["../../src/modules/object-constructor.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,iBAAiB;IAK5B,YAAY,IAAY,EAAE,WAAmB,EAAE,MAAc;QAC3D,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;QAC/B,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACvB,CAAC;CACF"}

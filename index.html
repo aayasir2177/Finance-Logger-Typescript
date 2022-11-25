@@ -4,104 +4,65 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Expense Tracker</title>
+    <title>Finance Logger</title>
     <link
       rel="stylesheet"
       href="https://bootswatch.com/5/flatly/bootstrap.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    />
-    <style>
-      .container {
-        max-width: 500px !important;
-      }
-      .no-border {
-        border: 0;
-        box-shadow: none;
-      }
-    </style>
-    <script src="app.js"></script>
   </head>
-  <body>
-    <div class="container mt-4">
-      <h1 class="display-10 text-center">
-        <i class="fa-sharp fa-solid fa-money-bill-transfer"></i> Expense Tracker
-      </h1>
-
-      <!-- Text Fields -->
-      <form action="" id="book-form">
-        <div class="form-group">
-          <label for="amount" class="mt-4">Amount</label>
-          <input type="number" id="amount" class="form-control" />
+  <body class="bg-light">
+    <div class="container mw-50 d-flex flex-column align-items-center">
+      <div class="row">
+        <div class="col-sm mt-3 mb-3">
+          <h4 class="display-6 text-center text-success pt-5">
+            Finance Logger
+          </h4>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="description" class="mt-4">Description</label>
-          <input type="text" id="description" class="form-control" />
-        </div>
-
-        <div
-          class="form-group d-flex align-items-center justify-content-around mt-4 bg-light p-5 border border-dark rounded"
-          class="mt-4"
-        >
-          <div class="form-check">
-            <label class="form-check-label text-success">
-              <input
-                type="radio"
-                class="form-check-input"
-                name="optradio"
-                value="income"
-                id="income"
-              />Income
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label text-danger">
-              <input
-                type="radio"
-                class="form-check-input"
-                name="optradio"
-                value="expense"
-                id="expense"
-                checked
-              />Expense
-            </label>
-          </div>
-        </div>
-        <div class="jumbotron bg-light border border-dark rounded mt-4 p-4">
-          <h1 class="display-4 text-center" id="total-balance"></h1>
-          <hr class="my-3" />
-          <div class="d-flex justify-content-between">
-            <p class="text-success" id="total-income">Total Income: 200</p>
-            <p class="text-danger" id="total-expense">Total Expense: 50</p>
+      <div class="row w-75 mt-3 mb-3">
+        <div class="col-sm">
+          <div class="form-group">
+            <label for="demo_overview_minimal">Type: </label>
+            <select class="form-control" id="demo_overview_minimal" type>
+              <option>Income</option>
+              <option>Expense</option>
+            </select>
           </div>
         </div>
 
-        <button
-          type="button"
-          class="btn btn-primary mt-4 btn-block w-100"
-          onclick="addEntry()"
-        >
-          Add Entry
-        </button>
-      </form>
+        <div class="col-sm">
+          <div class="form-group">
+            <label for="demo_overview_minimal">Description: </label>
+            <input type="text" class="form-control" description />
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group">
+            <label for="demo_overview_minimal">Amount: </label>
+            <input type="number" class="form-control" amount />
+          </div>
+        </div>
+        <div class="col-sm">
+          <button class="btn btn-success px-4 mt-4" add-button>Add</button>
+        </div>
+      </div>
 
-      <!-- Book Library -->
-      <table class="table table-striped mt-5 text-capitalize">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-
-        <tbody id="table-body"></tbody>
-      </table>
+      <div class="row w-100">
+        <div class="col-sm">
+          <ul class="list-group list-group-flush pt-5 pb-5" list></ul>
+        </div>
+      </div>
     </div>
 
-    <!-- <script src="./app.js"></script> -->
+    <template template>
+      <li class="list-group-item py-3">
+        <h2 class="lead text-info mb-3" type>Expense</h2>
+        <p description>Any income or Expense here</p>
+        <p amount>100</p>
+      </li>
+    </template>
+
+    <script type="module" src="./public/app.js" defer></script>
   </body>
 </html>
